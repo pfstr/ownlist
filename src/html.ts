@@ -59,6 +59,17 @@ function privacyLine(url?: string): string {
     : "";
 }
 
+// Visible "Powered by" credit linking the project page. On by default, turned
+// off with SHOW_CREDIT="false" (see README, Options).
+export const CREDIT_URL =
+  "https://rafaelpfister.ch/blog/serverloser-newsletter-cloudflare-workers-d1";
+
+function creditLine(show: boolean): string {
+  return show
+    ? `<p class="fineprint">Powered by <a href="${CREDIT_URL}" target="_blank" rel="noopener">newsletter-template</a></p>`
+    : "";
+}
+
 // Turnstile widget markup + loader, rendered only when a site key is set.
 function turnstile(siteKey?: string): string {
   return siteKey
@@ -85,7 +96,7 @@ const SUBMIT_JS = `document.getElementById('f').addEventListener('submit', async
   if (r.ok && !j.pending) e.target.reset();
 });`;
 
-export function signupPage(turnstileSiteKey?: string, privacyUrl?: string): string {
+export function signupPage(turnstileSiteKey?: string, privacyUrl?: string, credit = true): string {
   return shell(
     "Subscribe",
     `<h1>Subscribe to the newsletter</h1>
@@ -98,14 +109,15 @@ export function signupPage(turnstileSiteKey?: string, privacyUrl?: string): stri
        <button>Subscribe</button>
        <div class="msg" id="m"></div>
        ${privacyLine(privacyUrl)}
-     </form>`,
+     </form>
+     ${creditLine(credit)}`,
     SUBMIT_JS,
   );
 }
 
 // Transparent, chrome-free form for embedding on the user's own site
 // (via <iframe src="/embed"> or the /embed page). Posts to the same origin.
-export function embedPage(turnstileSiteKey?: string, privacyUrl?: string): string {
+export function embedPage(turnstileSiteKey?: string, privacyUrl?: string, credit = true): string {
   return `<!doctype html><html><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex"><title>Subscribe</title>
@@ -139,6 +151,7 @@ export function embedPage(turnstileSiteKey?: string, privacyUrl?: string): strin
     <button>Subscribe</button>
     <div class="msg" id="m"></div>
     ${privacyLine(privacyUrl)}
+    ${creditLine(credit)}
   </form>
   <script>${SUBMIT_JS}</script>
 </body></html>`;
@@ -184,20 +197,21 @@ export function adminPage(hasSenderAddress: boolean): string {
   );
 }
 
-export function messagePage(title: string, body: string): string {
-  return shell(title, `<h1>${title}</h1><p>${body} <a href="/">Home</a></p>`);
+export function messagePage(title: string, body: string, credit = true): string {
+  return shell(title, `<h1>${title}</h1><p>${body} <a href="/">Home</a></p>${creditLine(credit)}`);
 }
 
 // Confirmation step behind the unsubscribe link: a human clicks the button,
 // which fires the POST. Mail scanners that prefetch links only ever GET, so
 // they can no longer unsubscribe readers by accident.
-export function unsubscribePage(token: string): string {
+export function unsubscribePage(token: string, credit = true): string {
   return shell(
     "Unsubscribe",
     `<h1>Unsubscribe</h1>
      <p>Click the button to stop receiving these emails.</p>
      <form method="post" action="/unsubscribe?t=${encodeURIComponent(token)}">
        <button>Unsubscribe</button>
-     </form>`,
+     </form>
+     ${creditLine(credit)}`,
   );
 }

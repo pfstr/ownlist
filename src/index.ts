@@ -2,7 +2,7 @@ import { Hono } from "hono";
 import { cors } from "hono/cors";
 import { sendEmail, isEmailConfigured } from "./email";
 import * as mail from "./email";
-import { signupPage, embedPage, adminPage, messagePage, unsubscribePage } from "./html";
+import { signupPage, embedPage, adminPage, messagePage, unsubscribePage, CREDIT_URL } from "./html";
 import { EXTRA_FIELDS } from "./fields";
 import { fetchFeedItems, type FeedItem } from "./rss";
 
@@ -25,6 +25,7 @@ type Bindings = {
   CONFIRM_SUBJECT?: string;
   CONFIRM_HTML?: string;
   NOTIFY_EMAIL?: string;
+  SHOW_CREDIT?: string;
 };
 
 // One outgoing email, ready for delivery.
@@ -54,6 +55,11 @@ const listHeaders = (unsub: string): Record<string, string> => ({
   "List-Unsubscribe-Post": "List-Unsubscribe=One-Click",
 });
 
+// "Powered by" credit on the public pages and in the email footer: on unless
+// SHOW_CREDIT is explicitly "false".
+const showCredit = (env: Bindings) =>
+  String(env.SHOW_CREDIT ?? "").trim().toLowerCase() !== "false";
+
 const escapeHtml = (s: string) =>
   s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 
@@ -70,7 +76,8 @@ function complianceFooter(env: Bindings, unsub: string): string {
   return `<hr style="border:none;border-top:1px solid #ddd;margin:28px 0 12px">
     <p style="font-size:12px;line-height:1.6;color:#888">
       ${escapeHtml(text)}
-      <a href="${unsub}" style="color:#888">${escapeHtml(label)}</a>${address ? `<br>${escapeHtml(address)}` : ""}
+      <a href="${unsub}" style="color:#888">${escapeHtml(label)}</a>${address ? `<br>${escapeHtml(address)}` : ""}${
+        showCredit(env) ? `<br>Powered by <a href="${CREDIT_URL}" style="color:#888">newsletter-template</a>` : ""}
     </p>`;
 }
 
@@ -286,10 +293,10 @@ async function readParams(c: any): Promise<Record<string, string>> {
 }
 
 // --- Public: hosted signup form ---
-app.get("/", (c) => c.html(signupPage(c.env.TURNSTILE_SITE_KEY, c.env.PRIVACY_URL)));
+app.get("/", (c) => c.html(signupPage(c.env.TURNSTILE_SITE_KEY, c.env.PRIVACY_URL, showCredit(c.env))));
 
 // --- Public: bare form for iframe/script embedding on your own site ---
-app.get("/embed", (c) => c.html(embedPage(c.env.TURNSTILE_SITE_KEY, c.env.PRIVACY_URL)));
+app.get("/embed", (c) => c.html(embedPage(c.env.TURNSTILE_SITE_KEY, c.env.PRIVACY_URL, showCredit(c.env))));
 
 // Owner notification: when NOTIFY_EMAIL is set, a short heads-up email goes
 // out for every subscription that becomes active (single opt-in signup, or a
@@ -410,7 +417,7 @@ app.get("/confirm", async (c) => {
       c.executionCtx.waitUntil(notifyOwner(c.env, row.email, row.name, "confirmed double opt-in"));
     }
   }
-  return c.html(messagePage("You're subscribed!", "Thanks for confirming — you're all set."));
+  return c.html(messagePage("You're subscribed!", "Thanks for confirming — you're all set.", showCredit(c.env)));
 });
 
 // --- Public: unsubscribe. GET shows a one-button confirmation page, so mail
@@ -419,8 +426,8 @@ app.get("/confirm", async (c) => {
 // requests from mail clients. ---
 app.get("/unsubscribe", (c) => {
   const token = c.req.query("t") || c.req.query("token") || "";
-  if (!token) return c.html(messagePage("Invalid link", "This unsubscribe link is incomplete."));
-  return c.html(unsubscribePage(token));
+  if (!token) return c.html(messagePage("Invalid link", "This unsubscribe link is incomplete.", showCredit(c.env)));
+  return c.html(unsubscribePage(token, showCredit(c.env)));
 });
 
 app.post("/unsubscribe", async (c) => {
@@ -436,7 +443,7 @@ app.post("/unsubscribe", async (c) => {
   }
   // A page for the human clicking the button; plain text for one-click POSTs.
   return (c.req.header("accept") || "").includes("text/html")
-    ? c.html(messagePage("You've been unsubscribed.", "You won't receive further emails."))
+    ? c.html(messagePage("You've been unsubscribed.", "You won't receive further emails.", showCredit(c.env)))
     : c.text("unsubscribed");
 });
 

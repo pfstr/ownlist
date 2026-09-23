@@ -18,6 +18,7 @@
     "FROM_NAME": "My Newsletter",
     "FROM_EMAIL": "newsletter@example.com",
     "DOUBLE_OPT_IN": "false",
-    "SEND_BATCH": "40"
+    "SEND_BATCH": "40",
+    "SHOW_CREDIT": "true"
   }
 }

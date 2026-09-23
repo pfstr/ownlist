@@ -73,6 +73,11 @@ Settings → Variables and Secrets* (double opt-in can also be set on the deploy
   to receive a short email whenever a subscription becomes active (a single
   opt-in signup, or a confirmed double opt-in). Requires email to be
   configured. Leave blank to disable.
+- **Credit link (`SHOW_CREDIT`)**: a small "Powered by newsletter-template"
+  line with a link to the project page appears under the signup and embed
+  forms, on the confirmation and unsubscribe pages, and in the email footer.
+  It is on by default and helps other people find the template. Set
+  `SHOW_CREDIT` to `"false"` to hide it; nothing else changes.
 
 ## How it works
 

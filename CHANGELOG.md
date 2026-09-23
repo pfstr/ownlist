@@ -7,6 +7,15 @@ All notable changes to this template are documented here. The format follows
 Updating a deployed copy: see the [Updating](README.md#updating) section in
 the README.
 
+## [1.4.0] - 2026-09-23
+
+### Added
+
+- Credit link: a small "Powered by newsletter-template" line, linking the
+  project page, under the signup and embed forms, on the confirmation and
+  unsubscribe pages, and in the email footer. On by default; set
+  `SHOW_CREDIT` to `"false"` to hide it.
+
 ## [1.3.0] - 2026-07-24
 
 ### Added

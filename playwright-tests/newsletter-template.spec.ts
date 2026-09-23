@@ -27,3 +27,9 @@ test("unsubscribe link shows a confirmation step", async ({ page }) => {
   await page.goto("/unsubscribe?t=some-token");
   await expect(page.getByRole("button", { name: "Unsubscribe" })).toBeVisible();
 });
+
+test("signup page shows the credit link by default", async ({ page }) => {
+  await page.goto("/");
+  const credit = page.getByRole("link", { name: "newsletter-template" });
+  await expect(credit).toHaveAttribute("href", /rafaelpfister\.ch\/blog\/serverloser-newsletter/);
+});
