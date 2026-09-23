@@ -40,6 +40,7 @@ const STYLE = `
   form.stack .msg { margin-top: 0; }
   .fineprint { font-size: 12px; color: #888; margin: 0; }
   .fineprint a { color: inherit; }
+  .credit { margin-top: 18px; }
   .warn { background: #fff8e1; color: #8a6d00; border-radius: 10px;
     padding: 10px 12px; font-size: 13px; line-height: 1.5; }
 `;
@@ -72,7 +73,7 @@ export const creditUrl = (medium: "page" | "email", content: string) =>
 
 function creditLine(url?: string): string {
   return url
-    ? `<p class="fineprint">Powered by <a href="${escAttr(url)}" target="_blank" rel="noopener">newsletter-template</a></p>`
+    ? `<p class="fineprint credit">Powered by <a href="${escAttr(url)}" target="_blank" rel="noopener">newsletter-template</a></p>`
     : "";
 }
 
