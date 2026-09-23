@@ -62,7 +62,7 @@ function privacyLine(url?: string): string {
 // Visible "Powered by" credit linking the project page. On by default, turned
 // off with SHOW_CREDIT="false" (see README, Options).
 export const CREDIT_URL =
-  "https://rafaelpfister.ch/blog/serverloser-newsletter-cloudflare-workers-d1";
+  "https://rafaelpfister.ch/en/blog/serverless-newsletter-cloudflare-workers-d1";
 
 function creditLine(show: boolean): string {
   return show
