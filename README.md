@@ -77,7 +77,11 @@ Settings → Variables and Secrets* (double opt-in can also be set on the deploy
   line with a link to the project page appears under the signup and embed
   forms, on the confirmation and unsubscribe pages, and in the email footer.
   It is on by default and helps other people find the template. Set
-  `SHOW_CREDIT` to `"false"` to hide it; nothing else changes.
+  `SHOW_CREDIT` to `"pages"` to keep it on the pages only, `"email"` for the
+  email footer only, or `"false"` to hide it everywhere; nothing else changes.
+  The link carries UTM parameters (`utm_source=newsletter-template`,
+  `utm_medium=page` or `email`) so the project page can count where visitors
+  come from; no data about you or your subscribers is attached.
 
 ## How it works
 

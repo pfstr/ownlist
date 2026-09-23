@@ -14,7 +14,9 @@ the README.
 - Credit link: a small "Powered by newsletter-template" line, linking the
   project page, under the signup and embed forms, on the confirmation and
   unsubscribe pages, and in the email footer. On by default; set
-  `SHOW_CREDIT` to `"false"` to hide it.
+  `SHOW_CREDIT` to `"pages"` or `"email"` to show it only there, or to
+  `"false"` to hide it. The link carries UTM parameters (source, medium,
+  placement) and nothing else.
 
 ## [1.3.0] - 2026-07-24
 
