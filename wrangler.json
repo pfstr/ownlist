@@ -1,5 +1,5 @@
 {
-  "name": "newsletter-template",
+  "name": "ownlist",
   "main": "src/index.ts",
   "compatibility_date": "2025-10-08",
   "upload_source_maps": true,
@@ -7,7 +7,7 @@
   "d1_databases": [
     {
       "binding": "DB",
-      "database_name": "newsletter-template-db",
+      "database_name": "ownlist-db",
       "database_id": "REPLACED_ON_DEPLOY"
     }
   ],

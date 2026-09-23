@@ -82,7 +82,7 @@ function complianceFooter(env: Bindings, unsub: string): string {
     <p style="font-size:12px;line-height:1.6;color:#888">
       ${escapeHtml(text)}
       <a href="${unsub}" style="color:#888">${escapeHtml(label)}</a>${address ? `<br>${escapeHtml(address)}` : ""}${
-        creditInEmail(env) ? `<br>Powered by <a href="${escapeHtml(creditUrl("email", "footer"))}" style="color:#888">newsletter-template</a>` : ""}
+        creditInEmail(env) ? `<br>Powered by <a href="${escapeHtml(creditUrl("email", "footer"))}" style="color:#888">Ownlist</a>` : ""}
     </p>`;
 }
 

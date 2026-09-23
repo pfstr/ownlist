@@ -30,6 +30,6 @@ test("unsubscribe link shows a confirmation step", async ({ page }) => {
 
 test("signup page shows the credit link by default", async ({ page }) => {
   await page.goto("/");
-  const credit = page.getByRole("link", { name: "newsletter-template" });
+  const credit = page.getByRole("link", { name: "Ownlist" });
   await expect(credit).toHaveAttribute("href", /rafaelpfister\.ch\/en\/blog\/serverless-newsletter.*utm_medium=page&utm_content=signup/);
 });

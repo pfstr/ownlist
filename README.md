@@ -1,6 +1,8 @@
-# Newsletter
+# Ownlist
 
-[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/pfstr/newsletter-template)
+Own your list: a serverless newsletter on your own Cloudflare account.
+
+[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/pfstr/ownlist)
 
 <img src="docs/screenshot.png" alt="The hosted signup form" width="440">
 
@@ -73,13 +75,13 @@ Settings → Variables and Secrets* (double opt-in can also be set on the deploy
   to receive a short email whenever a subscription becomes active (a single
   opt-in signup, or a confirmed double opt-in). Requires email to be
   configured. Leave blank to disable.
-- **Credit link (`SHOW_CREDIT`)**: a small "Powered by newsletter-template"
+- **Credit link (`SHOW_CREDIT`)**: a small "Powered by Ownlist"
   line with a link to the project page appears under the signup and embed
   forms, on the confirmation and unsubscribe pages, and in the email footer.
   It is on by default and helps other people find the template. Set
   `SHOW_CREDIT` to `"pages"` to keep it on the pages only, `"email"` for the
   email footer only, or `"false"` to hide it everywhere; nothing else changes.
-  The link carries UTM parameters (`utm_source=newsletter-template`,
+  The link carries UTM parameters (`utm_source=ownlist`,
   `utm_medium=page` or `email`) so the project page can count where visitors
   come from; no data about you or your subscribers is attached.
 
@@ -171,7 +173,7 @@ other file needs changing. In your emails you can personalize with the
 `{{name}}` merge tag.
 
 Already have a list? Import it with
-`npx wrangler d1 execute newsletter-template-db --remote --command "..."`.
+`npx wrangler d1 execute ownlist-db --remote --command "..."`.
 
 ## Sending email (connect your own provider)
 
@@ -269,11 +271,11 @@ here don't reach it automatically (nothing ever pushes into your account).
 To pull in the latest version:
 
 ```bash
-git remote add template https://github.com/pfstr/newsletter-template
+git remote add template https://github.com/pfstr/ownlist
 git fetch template
 git merge -X theirs --allow-unrelated-histories --no-commit template/main
 git checkout HEAD -- src/email.ts src/fields.ts wrangler.json
-git commit -m "Update template" && git push
+git commit -m "Update Ownlist" && git push
 ```
 
 `-X theirs` takes the upstream side of every change; the `git checkout` line
@@ -288,7 +290,7 @@ The interfaces you build on — `sendEmail()` / `isEmailConfigured()` in
 [`src/fields.ts`](src/fields.ts) — are stable API: breaking changes only in a
 new major version, with an upgrade guide. See [`CHANGELOG.md`](CHANGELOG.md)
 for what's new, or [watch
-releases](https://github.com/pfstr/newsletter-template/releases) to get
+releases](https://github.com/pfstr/ownlist/releases) to get
 notified.
 
 ## Notes & limits

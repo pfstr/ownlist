@@ -9,9 +9,20 @@ the README.
 
 ## [1.4.0] - 2026-09-23
 
+### Changed
+
+- The template is now called **Ownlist** and lives at
+  [pfstr/ownlist](https://github.com/pfstr/ownlist). GitHub redirects the old
+  `pfstr/newsletter-template` URLs; to be explicit, point your update remote
+  at the new address:
+  `git remote set-url template https://github.com/pfstr/ownlist`.
+  New deployments default to the Worker name `ownlist` and the D1 database
+  `ownlist-db`. Existing deployments keep theirs: the update steps in the
+  README leave your `wrangler.json` untouched.
+
 ### Added
 
-- Credit link: a small "Powered by newsletter-template" line, linking the
+- Credit link: a small "Powered by Ownlist" line, linking the
   project page, under the signup and embed forms, on the confirmation and
   unsubscribe pages, and in the email footer. On by default; set
   `SHOW_CREDIT` to `"pages"` or `"email"` to show it only there, or to

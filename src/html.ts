@@ -69,11 +69,11 @@ const CREDIT_URL =
 // Project-page link tagged with UTM parameters, so clicks show up per source
 // (page vs. email) and per spot (signup, embed, unsubscribe, …).
 export const creditUrl = (medium: "page" | "email", content: string) =>
-  `${CREDIT_URL}?utm_source=newsletter-template&utm_medium=${medium}&utm_content=${content}`;
+  `${CREDIT_URL}?utm_source=ownlist&utm_medium=${medium}&utm_content=${content}`;
 
 function creditLine(url?: string): string {
   return url
-    ? `<p class="fineprint credit">Powered by <a href="${escAttr(url)}" target="_blank" rel="noopener">newsletter-template</a></p>`
+    ? `<p class="fineprint credit">Powered by <a href="${escAttr(url)}" target="_blank" rel="noopener">Ownlist</a></p>`
     : "";
 }
 

@@ -1,5 +1,5 @@
 {
-  "name": "newsletter-template",
+  "name": "ownlist",
   "version": "1.4.0",
   "description": "Serverless newsletter on your own Cloudflare account — signup, compliant one-click unsubscribe, and campaigns to your own list. Bring your own email sender.",
   "private": true,
@@ -15,7 +15,7 @@
     "test:e2e:codegen": "playwright codegen http://localhost:8787"
   },
   "cloudflare": {
-    "label": "Newsletter",
+    "label": "Ownlist",
     "products": [
       "Workers",
       "D1"
@@ -37,7 +37,7 @@
         "description": "Your own address: get a short notification email whenever a subscription becomes active (needs email configured). Leave blank to disable."
       },
       "SHOW_CREDIT": {
-        "description": "Shows a small \"Powered by newsletter-template\" link on the public pages and in the email footer. Set to \"pages\" or \"email\" to show it only there, or \"false\" to hide it."
+        "description": "Shows a small \"Powered by Ownlist\" link on the public pages and in the email footer. Set to \"pages\" or \"email\" to show it only there, or \"false\" to hide it."
       },
       "SEND_BATCH": {
         "description": "Queued emails delivered per minutely background run. The default 40 fits the free plan; raise it on the paid plan or when sendEmailBatch is implemented in src/email.ts."
